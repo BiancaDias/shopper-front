@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Container } from "./style";
+import { Container, ContainerList, Containerbuttons, ListRe, ButtonDelete, ButtonValidate, ButtonUpgrade } from "./style";
 import axios from "axios";
 import ListReturn from "../listReturn";
 
@@ -24,7 +24,7 @@ export default function ListProducts({fileName,file, setFile, load, setLoad, set
     axios.put(url, body)
     .then(e => { 
       setLoad(false)
-      console.log(e)
+      alert("Atualização feita com sucesso")
       deleteList()
     })
     .catch((err) => {
@@ -56,16 +56,22 @@ export default function ListProducts({fileName,file, setFile, load, setLoad, set
   }
   return(
     <Container>
-      <p>Nome do arquivo: <strong>{ file.length > 0 ? fileName : "Carregue um novo arquivo"}</strong></p>
-      {file.length > 0 ? <ul>
-        {file.map((f)=>(
-          <li>Código do produto: {f.product_code} Preço do Produto: {f.new_price} </li>
-        ))}
-      </ul>: <></>}
-      <ListReturn returnBack={returnBack}/>
-      <button onClick={deleteList} style={{cursor:'pointer'}}>Excluir</button>
-      <button disabled={file.length===0} style={{cursor: file.length === 0 ? 'not-allowed' : 'pointer'}} onClick={validateData}>Validar</button>
-      <button disabled={!upgrade} style={{cursor: !upgrade ? 'not-allowed' : 'pointer'}} onClick={updateData}>Atualizar</button>
+      <ContainerList>
+        <ListRe>
+          <p>{ file.length > 0 ? fileName : "Não há arquivos carregados"}</p>
+          {file.length > 0 ? <ul>
+            {file.map((f)=>(
+              <li>Código do produto: {f.product_code} - Preço do Produto: R$ {Number(f.new_price).toFixed(2).replace('.', ',')} </li>
+            ))}
+          </ul>: <></>}
+        </ListRe>
+        <ListReturn returnBack={returnBack}/>
+      </ContainerList>
+      <Containerbuttons>
+        <ButtonDelete disabled={file.length===0} style={{cursor: file.length === 0 ? 'not-allowed' : 'pointer'}} onClick={deleteList}>Excluir</ButtonDelete >
+        <ButtonValidate disabled={file.length===0 } style={{cursor: file.length ===0 ? 'not-allowed' : 'pointer'}} onClick={validateData}>Validar</ButtonValidate>
+        <ButtonUpgrade disabled={!upgrade} style={{cursor: !upgrade ? 'not-allowed' : 'pointer'}} onClick={updateData}>Atualizar</ButtonUpgrade>
+      </Containerbuttons>
     </Container>
   )
 }

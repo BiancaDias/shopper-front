@@ -1,5 +1,5 @@
 import Dropzone from "react-dropzone";
-import { CointainerInput, Container, DropContainer, UploadMessage } from "./styles";
+import { CointainerInput, Container, DropContainer, UploadMessage, Instructions, ContainerInstrucions } from "./styles";
 import ListProducts from "../listProducts";
 import { useState } from "react";
 
@@ -43,17 +43,29 @@ export default function Input(){
   }
   return(
   <Container>
-    <h1>Alteração de preços</h1>
-    <CointainerInput>
-      <Dropzone accept={{'text/csv':['.csv', '.CSV']}} onDropAccepted={upload}>
-        { ({getRootProps, getInputProps, isDragActive, isDragReject}) => (
-          <DropContainer {...getRootProps()} isDragActive={isDragActive && !disabledInput} isDragReject={isDragReject} disabled={disabledInput}>
-              <input {...getInputProps()} disabled={disabledInput}/>
-              {renderMessage(isDragActive, isDragReject)}
+    <h1>Área de alteração de preços</h1>
+    <ContainerInstrucions>
+      <CointainerInput>
+        <Dropzone accept={{'text/csv':['.csv', '.CSV']}} onDropAccepted={upload}>
+          { ({getRootProps, getInputProps, isDragActive, isDragReject}) => (
+            <DropContainer {...getRootProps()} isDragActive={isDragActive && !disabledInput} isDragReject={isDragReject} disabled={disabledInput}>
+                <input {...getInputProps()} disabled={disabledInput}/>
+                {renderMessage(isDragActive, isDragReject)}
             </DropContainer>
-        )}
-      </Dropzone>
-    </CointainerInput>
+          )}
+        </Dropzone>
+      </CointainerInput>
+      <Instructions>
+        <h3>Instruções</h3>
+        <ul>
+          <li>• Arreste ou selecione um arquivo .csv contendo as alterações de preço no campo ao lado;</li>
+          <li>• Após a leitura do arquivo, clique em validar;</li>
+          <li>• Após a validação, se todos os campos estiverm corretos, o botão atualizar ficará disponível;</li>
+          <li>• Se houver algum problema, leia atentamente quais foram, exclua seu arquivo do sistema e envie um novo com as correções solicitadas;</li>
+          <li>• Ao clicar em validar, as mudanças serão efetivadas e você poderá enviar um novo arquivo.</li>
+        </ul>
+      </Instructions>
+    </ContainerInstrucions>
     <ListProducts fileName = {fileName} file = {file} setFile = {setFile} load={load} setLoad={setLoad} setDisabledInput={setDisabledInput}/>
   </Container>
   )

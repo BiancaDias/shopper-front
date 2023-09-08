@@ -16,23 +16,23 @@ export default function ListReturn({returnBack}){
             {returnBack.ok.map((list) => (
               <ListProducts key={list.product_code}>
                 {console.log("chega aqui?")}
-                <p>Código: {list.product_code} -&nbsp;</p>
-                <p>Nome: {list.product_name} -&nbsp;</p>
-                <p>Preço Atual: R$ {(Number(list.actual_price)).toFixed(2).replace('.', ',')} -&nbsp;</p>
-                <p>Novo Preço: R$ {Number(list.new_price).toFixed(2).replace('.', ',')}</p>
+                <li>Código: {list.product_code} -&nbsp;</li>
+                <li>Nome: {list.product_name} -&nbsp;</li>
+                <li>Preço Atual: R$ {(Number(list.actual_price)).toFixed(2).replace('.', ',')} -&nbsp;</li>
+                <li>Novo Preço: R$ {Number(list.new_price).toFixed(2).replace('.', ',')}</li>
               </ListProducts>
             ))}
           </>
         ) : (
-          returnBack.error ? (
+          returnBack.error && (
             <p>Não foi possível validar</p>
-          ) : null
+          )
         )}
     
         {returnBack.error && returnBack.error.map((list) => (
           <ListProducts key={list.product_code}>
-            <p>Código: {list.product_code} -&nbsp;</p>
-            <p>Erro: {list.error}</p>
+            <li>Código: {list.product_code} -&nbsp;</li>
+            <li>Erro: {list.error}</li>
           </ListProducts>
         ))}
       </Container>
