@@ -19,6 +19,10 @@ const GlobalStyle = createGlobalStyle`
   html, body, #root {
     height: 100%;
   }
+
+  li {
+    list-style: none;
+  }
 `
 
 export default GlobalStyle
