@@ -57,7 +57,7 @@ export default function ListProducts({fileName,file, setFile, load, setLoad, set
           <p>{ file.length > 0 ? fileName : "Não há arquivos carregados"}</p>
           {file.length > 0 ? <ul>
             {file.map((f)=>(
-              <li>Código do produto: {f.product_code} - Preço do Produto: R$ {Number(f.new_price).toFixed(2).replace('.', ',')} </li>
+              <li key={f.product_code}>Código do produto: {f.product_code} - Preço do Produto: R$ {Number(f.new_price).toFixed(2).replace('.', ',')} </li>
             ))}
           </ul>: <></>}
         </ListRe>

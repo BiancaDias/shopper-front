@@ -5,7 +5,7 @@ export const Container = styled.div`
   min-height: 50px;
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: flex-start;
   padding: 15px !important;
   border-radius: 5px;
   box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.2); 

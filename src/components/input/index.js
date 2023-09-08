@@ -46,7 +46,7 @@ export default function Input(){
       <CointainerInput>
         <Dropzone accept={{'text/csv':['.csv', '.CSV']}} onDropAccepted={upload}>
           { ({getRootProps, getInputProps, isDragActive, isDragReject}) => (
-            <DropContainer {...getRootProps()} isDragActive={isDragActive && !disabledInput} isDragReject={isDragReject} disabled={disabledInput}>
+            <DropContainer {...getRootProps()} isDragActive={isDragActive} isDragReject={isDragReject} disabled={disabledInput}>
                 <input {...getInputProps()} disabled={disabledInput}/>
                 {renderMessage(isDragActive, isDragReject)}
             </DropContainer>
