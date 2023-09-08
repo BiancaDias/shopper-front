@@ -6,7 +6,10 @@ import { useState } from "react";
 export default function Input(){
   const [file, setFile] = useState([])
   const [fileName, setFileName] = useState('')
+  const [load, setLoad] = useState(false)
+  const [disabledInput, setDisabledInput] = useState(false)
   function upload(files){
+    setDisabledInput(true)
     const readerFile = files[0]
     const reader = new FileReader()
     setFileName(files[0].name)
@@ -44,14 +47,14 @@ export default function Input(){
     <CointainerInput>
       <Dropzone accept={{'text/csv':['.csv', '.CSV']}} onDropAccepted={upload}>
         { ({getRootProps, getInputProps, isDragActive, isDragReject}) => (
-          <DropContainer {...getRootProps()} isDragActive={isDragActive} isDragReject={isDragReject}>
-              <input {...getInputProps()}/>
+          <DropContainer {...getRootProps()} isDragActive={isDragActive && !disabledInput} isDragReject={isDragReject} disabled={disabledInput}>
+              <input {...getInputProps()} disabled={disabledInput}/>
               {renderMessage(isDragActive, isDragReject)}
             </DropContainer>
         )}
       </Dropzone>
     </CointainerInput>
-    <ListProducts fileName = {fileName} file = {file} setFile = {setFile}/>
+    <ListProducts fileName = {fileName} file = {file} setFile = {setFile} load={load} setLoad={setLoad} setDisabledInput={setDisabledInput}/>
   </Container>
   )
 }

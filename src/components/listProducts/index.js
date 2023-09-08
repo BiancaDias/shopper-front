@@ -3,7 +3,7 @@ import { Container } from "./style";
 import axios from "axios";
 import ListReturn from "../listReturn";
 
-export default function ListProducts({fileName,file, setFile}){
+export default function ListProducts({fileName,file, setFile, load, setLoad, setDisabledInput}){
   const [returnBack, setReturnBack] = useState()
   const [upgrade, setUpgrade] = useState(false)
   const url = process.env.REACT_APP_API_URL
@@ -13,9 +13,28 @@ export default function ListProducts({fileName,file, setFile}){
 
   function deleteList(){
     setFile([]);
+    setUpgrade(false)
+    setReturnBack()
+    setDisabledInput(false)
+  }
+
+  function updateData(){
+    setLoad(true)
+    const body = {products: file}
+    axios.put(url, body)
+    .then(e => { 
+      setLoad(false)
+      console.log(e)
+      deleteList()
+    })
+    .catch((err) => {
+      setLoad(false)
+      console.log(err)
+    })
   }
 
   function validateData(){
+    setLoad(true)
     const body = {products: file}
     console.log(body)
     axios.post(url, body)
@@ -27,8 +46,13 @@ export default function ListProducts({fileName,file, setFile}){
       if(e.data.ok){
         setUpgrade(true)
       }
+      setLoad(false)
     })
-    .catch((err) => console.log(err))
+    .catch((err) => {
+      setLoad(false)
+      setUpgrade(false)
+      console.log(err)
+    })
   }
   return(
     <Container>
@@ -39,9 +63,9 @@ export default function ListProducts({fileName,file, setFile}){
         ))}
       </ul>: <></>}
       <ListReturn returnBack={returnBack}/>
-      <button onClick={deleteList}>Excluir</button>
-      <button onClick={validateData}>Validar</button>
-      <button onClick={()=>{}}>Atualizar</button>
+      <button onClick={deleteList} style={{cursor:'pointer'}}>Excluir</button>
+      <button disabled={file.length===0} style={{cursor: file.length === 0 ? 'not-allowed' : 'pointer'}} onClick={validateData}>Validar</button>
+      <button disabled={!upgrade} style={{cursor: !upgrade ? 'not-allowed' : 'pointer'}} onClick={updateData}>Atualizar</button>
     </Container>
   )
 }

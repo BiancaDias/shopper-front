@@ -12,7 +12,7 @@ export default function ListReturn({returnBack}){
       <Container>
         {returnBack.ok ? (
           <>
-            <p>Validação</p>
+            <p>Validação feita com sucesso!</p>
             {returnBack.ok.map((list) => (
               <ListProducts key={list.product_code}>
                 {console.log("chega aqui?")}
