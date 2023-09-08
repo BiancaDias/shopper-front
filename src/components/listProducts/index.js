@@ -8,7 +8,6 @@ export default function ListProducts({fileName,file, setFile, load, setLoad, set
   const [upgrade, setUpgrade] = useState(false)
   const url = process.env.REACT_APP_API_URL
   useEffect(()=>{
-    console.log(file)
   },[fileName])
 
   function deleteList(){
@@ -29,14 +28,12 @@ export default function ListProducts({fileName,file, setFile, load, setLoad, set
     })
     .catch((err) => {
       setLoad(false)
-      console.log(err)
     })
   }
 
   function validateData(){
     setLoad(true)
     const body = {products: file}
-    console.log(body)
     axios.post(url, body)
     .then(e => { 
       setReturnBack(e.data)
@@ -51,7 +48,6 @@ export default function ListProducts({fileName,file, setFile, load, setLoad, set
     .catch((err) => {
       setLoad(false)
       setUpgrade(false)
-      console.log(err)
     })
   }
   return(

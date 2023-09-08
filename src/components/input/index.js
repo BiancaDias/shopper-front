@@ -18,10 +18,8 @@ export default function Input(){
       const lines = content.split('\n');
 
       let fileFormat = [];
-      console.log(lines.length)
       for (let i = 1; i < lines.length; i++) {
         const line = lines[i];
-        console.log(line)
         const column = line.split(',')
         fileFormat.push({product_code: Number(column[0]), new_price: Number(column[1])})
         

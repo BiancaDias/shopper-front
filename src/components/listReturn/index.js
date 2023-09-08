@@ -15,7 +15,6 @@ export default function ListReturn({returnBack}){
             <p>Validação feita com sucesso!</p>
             {returnBack.ok.map((list) => (
               <ListProducts key={list.product_code}>
-                {console.log("chega aqui?")}
                 <li>Código: {list.product_code} -&nbsp;</li>
                 <li>Nome: {list.product_name} -&nbsp;</li>
                 <li>Preço Atual: R$ {(Number(list.actual_price)).toFixed(2).replace('.', ',')} -&nbsp;</li>
