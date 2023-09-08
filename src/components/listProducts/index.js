@@ -1,8 +1,11 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { Container } from "./style";
 import axios from "axios";
+import ListReturn from "../listReturn";
 
 export default function ListProducts({fileName,file, setFile}){
+  const [returnBack, setReturnBack] = useState()
+  const [upgrade, setUpgrade] = useState(false)
   const url = process.env.REACT_APP_API_URL
   useEffect(()=>{
     console.log(file)
@@ -16,7 +19,15 @@ export default function ListProducts({fileName,file, setFile}){
     const body = {products: file}
     console.log(body)
     axios.post(url, body)
-    .then(e => console.log(e.data))
+    .then(e => { 
+      setReturnBack(e.data)
+      if(e.data.error){
+        setUpgrade(false)
+      }
+      if(e.data.ok){
+        setUpgrade(true)
+      }
+    })
     .catch((err) => console.log(err))
   }
   return(
@@ -27,6 +38,7 @@ export default function ListProducts({fileName,file, setFile}){
           <li>Código do produto: {f.product_code} Preço do Produto: {f.new_price} </li>
         ))}
       </ul>: <></>}
+      <ListReturn returnBack={returnBack}/>
       <button onClick={deleteList}>Excluir</button>
       <button onClick={validateData}>Validar</button>
       <button onClick={()=>{}}>Atualizar</button>
