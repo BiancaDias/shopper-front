@@ -1,6 +1,6 @@
 # Teste técnico | Shopper - Front
 
-Este é um projeto em Nest.js. Segue abaixo as instruções de configuração:
+Este é um projeto em React.js. Segue abaixo as instruções de configuração:
 
 Certifiquse-se de ter as seguintes ferramentas instaladas e atualizadas no seu sistema: 
 
